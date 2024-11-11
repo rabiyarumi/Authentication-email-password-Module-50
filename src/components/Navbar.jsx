@@ -15,6 +15,7 @@ const Navbar = () => {
             tabIndex={0}
             className="  flex gap-10 "
           >
+            <NavLink  to='/' className={({isActive}) => (isActive ? 'text-sky-400' : "")}>Home</NavLink>
             <NavLink  to='/login' className={({isActive}) => (isActive ? 'text-sky-400' : "")}>Login</NavLink>
             <NavLink to='/signup' className={({isActive}) => (isActive ? 'text-sky-400' : "")}>Sign Up</NavLink>
           </ul>
