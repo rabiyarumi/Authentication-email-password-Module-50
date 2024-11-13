@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { auth } from "../firebase.init";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -13,8 +13,10 @@ const SignUp = () => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const name = event.target.name.value;
+    const photo = event.target.photo.value;
     const terms = event.target.terms.checked;
-    console.log(email, password, terms);
+    console.log( name, photo, email, password, terms);
 
     //reset error message
     setErrorMessage("");
@@ -52,7 +54,23 @@ const SignUp = () => {
         .then(() => {
           console.log("Email verified")
         })
+
+        //update profile
+         const profile = {
+          displayName: name,
+          photoURL: photo
+         }
+
+         updateProfile(auth.currentUser, profile)
+         .then(() => {
+          console.log("user profile Updated")
+         })
+         .catch(error => console.log("user update error", error))
       })
+
+
+
+
       .catch((error) => {
         console.log(error.message);
         console.log(error.code);
@@ -69,6 +87,26 @@ const SignUp = () => {
         onSubmit={handleSignUp}
         className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto p-6"
       >
+        <label className="label">
+          <span className="label-text">Name</span>
+        </label>
+        <input
+          type="text"
+          name="name"
+          placeholder="name"
+          className="input input-bordered"
+          required
+        />
+        <label className="label">
+          <span className="label-text">Photo Url</span>
+        </label>
+        <input
+          type="text"
+          name="photo"
+          placeholder="Photo Url"
+          className="input input-bordered"
+          required
+        />
         <label className="label">
           <span className="label-text">Email</span>
         </label>

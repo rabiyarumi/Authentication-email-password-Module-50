@@ -45,7 +45,7 @@ const Login = () => {
 
     if(!email){
       console.log("provide valid email")
-      return;
+      // return;
     }
     else{
       sendPasswordResetEmail(auth, email)
